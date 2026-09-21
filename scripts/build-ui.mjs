@@ -46,7 +46,7 @@ const safeJs = js.replace(/<\/script/gi, "<\\/script").replace(/<!--/g, "<\\!--"
 if (/@import\b|url\(\s*["']?(?:https?:)?\/\//i.test(css)) {
   throw new Error("Plugin styles must remain self-contained; found a remote stylesheet or asset.");
 }
-const notices = readFileSync(resolve(root, "THIRD_PARTY_NOTICES.md"), "utf8").replace(/--/g, "&#45;&#45;");
+const notices = readFileSync(resolve(root, "THIRD_PARTY_NOTICES.txt"), "utf8").replace(/--/g, "&#45;&#45;");
 const html = `<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!--${notices}--><style>${css}</style></head><body><div id="root"></div><script>${safeJs}</script></body></html>`;
 
 mkdirSync(distDir, { recursive: true });
