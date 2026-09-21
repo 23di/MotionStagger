@@ -1,0 +1,26 @@
+{
+  "name": "motion-stagger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:ui && npm run build:main",
+    "build:main": "esbuild src/plugin/code.ts --bundle --outfile=dist/code.js --format=iife --platform=browser --target=es2021",
+    "build:ui": "node scripts/build-ui.mjs",
+    "check": "tsc --noEmit",
+    "test": "npm run build && node tests/motion.test.mjs && node tests/settings-json.test.mjs && node tests/preview.test.mjs"
+  },
+  "dependencies": {
+    "dialkit": "2.0.0",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.138.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "esbuild": "^0.25.10",
+    "typescript": "^5.9.2"
+  }
+}

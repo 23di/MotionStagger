@@ -1,0 +1,307 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: var(--figma-color-bg, #10100f);
+  --surface: var(--figma-color-bg-secondary, #ffffff);
+  --surface-2: var(--figma-color-bg-tertiary, #f0f0f0);
+  --surface-hover: var(--figma-color-bg-hover, #ececec);
+  --border: var(--figma-color-border, #dedede);
+  --border-strong: var(--figma-color-border-strong, #c8c8c8);
+  --text: var(--figma-color-text, #171717);
+  --text-2: var(--figma-color-text-secondary, #727272);
+  --text-3: var(--figma-color-text-tertiary, #9a9a9a);
+  --brand: var(--figma-color-bg-brand, #0d99ff);
+  --brand-hover: var(--figma-color-bg-brand-hover, #0b84db);
+  --brand-text: var(--figma-color-text-onbrand, #fff);
+  --brand-soft: color-mix(in srgb, var(--brand) 11%, var(--surface));
+  --brand-border: color-mix(in srgb, var(--brand) 34%, var(--border));
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --preview-grid: rgba(255, 255, 255, .035);
+  --preview-origin: #fff;
+  --preview-origin-ring: rgba(255, 255, 255, .12);
+  --order-tooltip-bg: #292929;
+  --button-secondary: #2f2f2f;
+  --button-secondary-hover: #3a3a3a;
+  --button-secondary-active: #444;
+  --button-secondary-text: rgba(255, 255, 255, .82);
+  --button-primary: #e6e6e6;
+  --button-primary-hover: #fff;
+  --button-primary-active: #d2d2d2;
+  --button-primary-text: #1e1e1e;
+  --button-disabled: #282828;
+  --button-disabled-text: rgba(255, 255, 255, .32);
+  --button-primary-disabled: #555;
+  --button-primary-disabled-text: rgba(255, 255, 255, .46);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: var(--figma-color-bg, #fff);
+    --preview-grid: rgba(0, 0, 0, .045);
+    --preview-origin: #111;
+    --preview-origin-ring: rgba(0, 0, 0, .12);
+    --order-tooltip-bg: #fff;
+    --button-secondary: #e8e8e8;
+    --button-secondary-hover: #dedede;
+  --button-secondary-active: #d2d2d2;
+    --button-secondary-text: rgba(0, 0, 0, .72);
+    --button-primary: #353535;
+    --button-primary-hover: #242424;
+  --button-primary-active: #111;
+    --button-primary-text: #fff;
+    --button-disabled: #ededed;
+    --button-disabled-text: rgba(0, 0, 0, .28);
+    --button-primary-disabled: #c7c7c7;
+    --button-primary-disabled-text: rgba(0, 0, 0, .4);
+  }
+}
+
+html.figma-light {
+  --preview-grid: rgba(0, 0, 0, .045);
+  --preview-origin: #111;
+  --preview-origin-ring: rgba(0, 0, 0, .12);
+  --order-tooltip-bg: #fff;
+  --button-secondary: #e8e8e8;
+  --button-secondary-hover: #dedede;
+  --button-secondary-active: #d2d2d2;
+  --button-secondary-text: rgba(0, 0, 0, .72);
+  --button-primary: #353535;
+  --button-primary-hover: #242424;
+  --button-primary-active: #111;
+  --button-primary-text: #fff;
+  --button-disabled: #ededed;
+  --button-disabled-text: rgba(0, 0, 0, .28);
+  --button-primary-disabled: #c7c7c7;
+  --button-primary-disabled-text: rgba(0, 0, 0, .4);
+}
+
+html.figma-dark {
+  --preview-grid: rgba(255, 255, 255, .035);
+  --preview-origin: #fff;
+  --preview-origin-ring: rgba(255, 255, 255, .12);
+  --order-tooltip-bg: #292929;
+  --button-secondary: #2f2f2f;
+  --button-secondary-hover: #3a3a3a;
+  --button-secondary-active: #444;
+  --button-secondary-text: rgba(255, 255, 255, .82);
+  --button-primary: #e6e6e6;
+  --button-primary-hover: #fff;
+  --button-primary-active: #d2d2d2;
+  --button-primary-text: #1e1e1e;
+  --button-disabled: #282828;
+  --button-disabled-text: rgba(255, 255, 255, .32);
+  --button-primary-disabled: #555;
+  --button-primary-disabled-text: rgba(255, 255, 255, .46);
+}
+
+html, body, #root { width: 100%; height: 100%; overflow: hidden; }
+body { background: var(--bg); color: var(--text); font: 11px/1.4 var(--font); user-select: none; -webkit-user-select: none; }
+button, select, input { font: inherit; }
+button { color: inherit; cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .42; }
+
+.shell { height: 100%; display: flex; flex-direction: column; background: var(--bg); font-size: 13px; line-height: normal; }
+.content { min-height: 0; flex: 1; overflow-y: auto; scrollbar-gutter: stable; scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--text-3) 55%, transparent) transparent; padding: 20px 16px 16px; }
+.content-body { display: flex; flex-direction: column; gap: var(--dial-row-gap); }
+.motion-controls { min-width: 0; border: 0; }
+/* Menus portal into the fieldset. Keep them outside the section layout so
+   DialKit's last-child dividers and spacing do not change when a menu opens. */
+.motion-controls-layout { display: flex; flex-direction: column; gap: var(--dial-row-gap); }
+.motion-controls:disabled { opacity: .55; }
+.content::-webkit-scrollbar { width: 8px; }
+.content::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 10px; background: color-mix(in srgb, var(--text-3) 55%, transparent); background-clip: padding-box; }
+.panel-section { flex: none; padding: 0 0 12px; border: 0; border-bottom: 1px solid var(--dial-surface-subtle); background: transparent; }
+.panel-section:last-child { padding-bottom: 0; border-bottom: 0; }
+.group-level-row { margin-top: 7px; }
+.mode-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.mode-button { min-width: 0; height: 30px; padding: 0 4px; border: 0; border-radius: 6px; background: transparent; color: var(--dial-text-label); font-size: 11px; }
+.mode-button:hover, .order-button:hover { color: var(--dial-text-primary); background: var(--dial-surface-hover); }
+.mode-button.active, .order-button.active { color: var(--dial-text-primary); background: var(--dial-surface-active); }
+.order-section { display: flex; flex-direction: column; gap: 6px; }
+.order-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.order-button { min-width: 0; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 6px; color: var(--dial-text-label); background: transparent; transition: color 150ms ease, background-color 150ms ease; }
+.order-button:hover { color: var(--dial-text-primary); background: var(--dial-surface-hover); }
+.order-button.active { color: var(--dial-text-primary); background: var(--dial-surface-active); }
+.order-tooltip { position: fixed; z-index: 100000; display: flex; flex-direction: column; gap: 3px; width: max-content; max-width: min(260px, calc(100vw - 24px)); padding: 8px 10px; border: 1px solid var(--dial-surface-active); border-radius: 6px; background: var(--order-tooltip-bg); color: var(--dial-text-primary); box-shadow: 0 5px 20px rgb(0 0 0 / 20%); font-size: 11px; line-height: 1.35; pointer-events: none; transform: translate(-50%, -100%); animation: order-tooltip-enter 200ms var(--ease-out) both; }
+.order-tooltip.below { transform: translate(-50%, 0); }
+@keyframes order-tooltip-enter { from { opacity: 0; translate: 0 5px; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .order-tooltip { animation: none; } .order-button { transition: none; } }
+.order-tooltip strong { font-weight: 600; }
+.order-tooltip span { color: var(--dial-text-label); }
+
+.error-message { flex: 0 0 auto; margin: 0 16px 8px; padding: 8px 9px; display: flex; align-items: flex-start; gap: 8px; border: 1px solid color-mix(in srgb, #f24822 40%, var(--border)); border-radius: 7px; color: var(--text); background: color-mix(in srgb, #f24822 10%, var(--surface)); user-select: text; -webkit-user-select: text; }
+.error-message span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.error-message button { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border: 0; border-radius: 4px; color: var(--text-2); background: transparent; }
+.error-message button:hover { color: var(--text); background: var(--surface-hover); }
+.footer { flex: 0 0 auto; padding: 0 16px 26px; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 8px; border: 0; background: transparent; }
+.status { grid-column: 1 / -1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--dial-text-label); font-size: 10px; line-height: 16px; }
+.action-slot { min-width: 0; border: 0; padding: 0; margin: 0; }
+.action-slot .dialkit-button-group, .action-slot .dialkit-button { width: 100%; }
+.footer .dialkit-button { height: 44px; background: var(--button-secondary); color: var(--button-secondary-text); }
+.footer .dialkit-button:hover:not(:disabled) { background: var(--button-secondary-hover); color: var(--dial-text-primary); }
+.footer .action-slot:last-child .dialkit-button { background: var(--button-primary); color: var(--button-primary-text); }
+.footer .action-slot:last-child .dialkit-button:hover:not(:disabled) { background: var(--button-primary-hover); color: var(--button-primary-text); }
+.footer .dialkit-button:disabled { background: var(--button-disabled); color: var(--button-disabled-text); opacity: 1; }
+.footer .action-slot:last-child .dialkit-button:disabled { background: var(--button-primary-disabled); color: var(--button-primary-disabled-text); }
+.icon { display: block; flex: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Use DialKit's own theme, hover states and metrics. Only adapt layout and
+   offline fonts; dropdowns stay inside the nearest themed, inertable root. */
+.dialkit-slider-value, .dialkit-slider-input, .dialkit-text-input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.motion-controls:disabled { pointer-events: none; }
+.dialkit-select-dropdown { scrollbar-gutter: stable; }
+.setting-row { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.radio-bare { display: flex; justify-content: flex-start; background: transparent; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.setting-label { font-size: 13px; font-weight: 500; color: var(--dial-text-label); line-height: 1.35; }
+.setting-row .dialkit-select-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.setting-row .dialkit-select-right { width: 100%; justify-content: space-between; min-width: 0; }
+.setting-row .dialkit-select-value { min-width: 0; }
+
+.span-control { min-width: 0; }
+.library-links { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 0 0 2px; }
+.library-links a { color: var(--dial-text-label); font-size: 10px; line-height: 16px; text-decoration: none; }
+.library-links a:hover { color: var(--dial-text-primary); text-decoration: underline; }
+.settings-json { display: flex; flex-direction: column; gap: 6px; }
+.settings-json .dialkit-button-group { width: 100%; }
+.settings-json-editor { display: flex; flex-direction: column; gap: 6px; }
+.settings-json-editor label, .settings-json-editor p { color: var(--dial-text-label); font-size: 11px; }
+.settings-json-editor textarea { width: 100%; min-height: 100px; max-height: 200px; resize: vertical; padding: 8px; border: 1px solid var(--dial-surface-active); border-radius: 6px; background: var(--surface); color: var(--dial-text-primary); font: 11px/1.4 ui-monospace, monospace; scrollbar-gutter: stable; }
+.stagger-preview { position: relative; flex: 0 0 auto; margin: 0 16px; overflow: hidden; background: transparent; isolation: isolate; }
+.stagger-preview.expanded { flex: 1 1 auto; min-height: 200px; }
+.stagger-preview-background { position: absolute; display: block; pointer-events: none; }
+.stagger-preview-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--preview-grid) 1px, transparent 1px), linear-gradient(90deg, var(--preview-grid) 1px, transparent 1px); background-size: 20px 20px; mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent); }
+.stagger-preview-origin { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; border-radius: 50%; background: var(--preview-origin); box-shadow: 0 0 0 3px var(--preview-origin-ring); transform: translate(-50%, -50%); }
+.stagger-preview-position { position: absolute; transform: translate(-50%, -50%); }
+.stagger-preview-card { display: flex; align-items: flex-end; padding: 6px; background: #ff6534; color: rgba(255,255,255,.82); font-size: 8px; font-variant-numeric: tabular-nums; will-change: transform, opacity; }
+.stagger-preview-card-1 { background: #c4ff48; color: #10100f; }
+.stagger-preview-card-2 { background: #559eff; }
+.stagger-preview-card-3 { background: #bd78f0; }
+.stagger-preview-card-4 { background: #e6cc72; color: #10100f; }
+.stagger-preview-card.has-image { padding: 0; background: transparent; }
+.stagger-preview-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+.stagger-preview-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 18px 20px; text-align: center; color: var(--dial-text-label); font-size: 11px; }
+.stagger-preview-empty strong { color: var(--dial-text-primary); font-size: 13px; font-weight: 600; }
+.stagger-preview-empty p { max-width: 270px; line-height: 1.45; }
+.stagger-preview-empty .action-slot { width: min(220px, 100%); margin-top: 5px; }
+.stagger-preview-empty .dialkit-button { min-height: 32px; }
+.custom-easing { display: flex; flex-direction: column; gap: 6px; }
+.curve-error { color: var(--dial-text-label); font-size: 12px; }
+
+.selection-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 24px 20px; text-align: center; color: var(--dial-text-label); font-size: 11px; }
+.selection-empty strong { color: var(--dial-text-primary); font-size: 13px; font-weight: 600; }
+.selection-empty p { max-width: 270px; line-height: 1.45; }
+.selection-empty .action-slot { width: min(220px, 100%); margin-top: 5px; }
+
+.stagger-order { display: flex; flex-direction: column; gap: 10px; padding-bottom: 6px; }
+.control-stack { display: flex; flex-direction: column; gap: 14px; padding: 6px 0 12px; }
+.settings-json-actions .dialkit-button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+.resize-handle {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100000;
+  display: flex;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  cursor: ns-resize;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+}
+
+.resize-grip {
+  width: 38px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--text-3);
+  box-shadow: 0 0 0 0 transparent;
+  transition:
+    width 160ms var(--ease-out),
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms var(--ease-out);
+}
+
+.resize-handle:hover .resize-grip,
+.resize-handle:focus-visible .resize-grip {
+  width: 48px;
+  background: var(--text-2);
+}
+
+.resize-handle:focus-visible .resize-grip {
+  box-shadow: 0 0 0 3px var(--border);
+}
+
+.resize-handle.dragging .resize-grip {
+  width: 58px;
+  background: var(--text);
+  box-shadow: 0 0 16px var(--border);
+  transform: scaleY(1.25);
+}
+
+
+.shell { padding-bottom: 18px; }
+.footer { padding-bottom: 12px; }
+
+.top-timing-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 6px; margin-bottom: 8px; }
+.top-timing-row > * { min-width: 0; }
+.top-timing-row .dialkit-select-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.top-timing-row .dialkit-select-right { width: 100%; min-width: 0; justify-content: space-between; }
+.top-timing-row .dialkit-select-value { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+.track-timeline { position: sticky; top: 0; z-index: 80000; background: var(--bg); display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; padding-bottom: 8px; }
+.timeline-tracks {
+  --preview-height: clamp(60px, 32vh, 192px);
+  height: var(--preview-height);
+  display: grid;
+  grid-template-rows: repeat(var(--track-count), minmax(0, 1fr));
+  gap: min(2px, calc(var(--preview-height) / var(--track-count) / 3));
+  overflow: hidden;
+  background-image: linear-gradient(var(--preview-grid) 1px, transparent 1px), linear-gradient(90deg, var(--preview-grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.timeline-row { min-height: 0; margin: 0; padding: 0; }
+.timeline-lane { position: relative; height: 100%; margin: 0; padding: 0; }
+.timeline-bar { position: absolute; inset-block: 0; min-width: 2px; opacity: .78; border-radius: 3px; overflow: hidden; }
+.timeline-caption { color: var(--dial-text-label); font-size: 9px; padding-top: 4px; }
+.timeline-ruler { color: var(--dial-text-label); font: 9px/14px ui-monospace, monospace; }
+.timeline-ruler-labels { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.timeline-ruler-labels span:nth-child(2) { text-align: center; }
+.timeline-ruler-labels span:last-child { text-align: right; }
+.timeline-bar::before, .timeline-bar::after { content: ""; position: absolute; top: 20%; bottom: 20%; width: 2px; background: rgb(255 255 255 / 75%); }
+.timeline-bar::before { left: 3px; }
+.timeline-bar::after { right: 3px; }
+
+.timeline-resize { display: flex; flex: none; height: 18px; align-items: center; justify-content: center; cursor: ns-resize; touch-action: none; user-select: none; outline: none; border-top: 1px solid var(--dial-surface-subtle); border-bottom: 1px solid var(--dial-surface-subtle); }
+.timeline-resize span { width: 38px; height: 3px; border-radius: 999px; background: var(--text-3); box-shadow: 0 0 0 0 transparent; transition: width 160ms var(--ease-out), background 160ms ease, box-shadow 160ms ease, transform 120ms var(--ease-out); }
+.timeline-resize:hover span, .timeline-resize:focus-visible span { width: 48px; background: var(--text-2); }
+.timeline-resize:focus-visible span { box-shadow: 0 0 0 3px var(--dial-surface-subtle); }
+.timeline-resize.dragging span { width: 58px; background: var(--text); box-shadow: 0 0 16px var(--dial-surface-subtle); transform: scaleY(1.25); }
+
+.timeline-tooltip { animation: none; }
+.timeline-tooltip strong { overflow-wrap: anywhere; }
+.timeline-bar:hover, .timeline-bar:focus-visible { opacity: 1; outline: none; }
+.timeline-bar:focus-visible { box-shadow: inset 0 0 0 1px var(--dial-text-primary); }
+.footer .dialkit-button:disabled { cursor: default; }
+.footer .dialkit-button:active:not(:disabled) { background: var(--button-secondary-active); }
+.footer .action-slot:last-child .dialkit-button:active:not(:disabled) { background: var(--button-primary-active); }
+.action-slot.is-loading .dialkit-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; white-space: nowrap; }
+.action-slot.is-loading .dialkit-button::before { content: ""; flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: action-spin 650ms linear infinite; }
+@keyframes action-spin { to { transform: rotate(360deg); } }
+
+/* ButtonGroup is a column flex container; prevent flex: 1 from overriding the explicit button height. */
+.footer .dialkit-button { flex: 0 0 44px; height: 44px; min-height: 44px; }

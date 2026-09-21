@@ -1,0 +1,13 @@
+{
+  "name": "Motion Stagger",
+  "id": "1683987341831983464",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "main": "dist/code.js",
+  "ui": "dist/index.html",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  },
+  "documentAccess": "dynamic-page",
+  "enableProposedApi": false
+}
